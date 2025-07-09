@@ -1,7 +1,11 @@
+import { Component, type ReactNode } from 'react';
 import "./App.css";
 
-function App() {
-  return <></>;
+class App extends Component {
+  render(): ReactNode {
+    return <></>;
+  }
+  
 }
 
 export default App;
