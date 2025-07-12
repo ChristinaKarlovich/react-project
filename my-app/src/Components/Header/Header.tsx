@@ -1,8 +1,8 @@
-import { Component, type ReactNode } from 'react';
+import React from 'react';
 import "./Header.css"
 
-class Header extends Component {
-  render(): ReactNode {
+class Header extends React.Component {
+  render(): React.ReactNode {
     return <div className ="heder-wrapper">
       <h1>Star Trek</h1>
     </div>
