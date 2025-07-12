@@ -2,27 +2,36 @@ import React from 'react';
 import "./CardListPanel.css"
 import CartListItem from './CardListItem/CardListItem';
 
-class CardListPanel extends React.Component {  
+interface CardListProps {
+    data?: [
+      {
+        uid: string,
+        title: string,
+        season: {title: string}, 
+        seasonNumber: string, 
+        episodeNumber: string
 
-  constructor(props) {
+      }
+    ]| null
+
+}
+  
+class CardListPanel extends React.Component<CardListProps>{  
+
+  constructor(props: CardListProps) {
     super(props);
-    console.log(props.data)
-  }
-
-  componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{}>, snapshot?: any): void {
-    console.log(this.props.data)
-    
   }
 
   render(): React.ReactNode {
 
     if(!this.props.data)
       return<></>
-    let cardList = this.props.data.episodes.map((item=> {
-      return <CartListItem title = {item.title} description = {item.season.title} season = {item.seasonNumber} episode = {item.episodeNumber} />
-    } ))
+    const cardList = this.props.data.map(item=> {
+      return (<div key={item.uid}><CartListItem uid = {item.uid} title = {item.title} description = {item.season.title} season = {item.seasonNumber} episode = {item.episodeNumber} /> </div>);
+      
+    } )
     return <div>
-    Cards{cardList}
+    {cardList}
     </div>
   }
 

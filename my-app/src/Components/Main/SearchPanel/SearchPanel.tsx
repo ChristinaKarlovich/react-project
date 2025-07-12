@@ -1,8 +1,18 @@
 import React from 'react';
 import "./SearchPanel.css"
 
-class SearchPannel extends React.Component {
-   constructor(props) {
+interface SearchPanelProps {
+  searchText: string| null
+  showResult: (text: string| null) => void;
+}
+
+interface SearchPanelState {
+  searchText: string| null;
+  data?: [];
+}
+class SearchPannel extends React.Component<SearchPanelProps, SearchPanelState> {
+  
+   constructor(props: SearchPanelProps) {
     super(props);
     this.state = {searchText:this.props.searchText};
 
@@ -10,18 +20,18 @@ class SearchPannel extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange(event: { target: { value: string| null; }; }) {
     this.setState({searchText: event.target.value});
   }
 
-  handleSubmit(event) {
+  handleSubmit(event: { preventDefault: () => void; }) {
     this.props.showResult(this.state.searchText);
     event.preventDefault();
   }
   render(): React.ReactNode {
     return <div>
       <form onSubmit={this.handleSubmit}>
-        <input type='text'value={this.state.searchText} onChange={this.handleChange}></input>
+        <input type='text' onChange={this.handleChange}></input>
         <input type="submit" value="Search" />
       </form>
     </div>

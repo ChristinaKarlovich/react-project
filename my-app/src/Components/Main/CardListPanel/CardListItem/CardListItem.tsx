@@ -1,11 +1,19 @@
 import React from 'react';
 import "./CardListItem.css"
 
-class CartListItem extends React.Component {
-  constructor(props) {
+interface CardListItemProps {
+  uid: string,
+  title?: string,
+  description?: string
+  season?: string,
+  episode?: string
+}
+
+class CardListItem extends React.Component<CardListItemProps>{
+  constructor(props: CardListItemProps) {
     super(props)
-    this.state =  { title: this.props.title,
-                  description: this.props.description};
+    this.state =  { title: props.title,
+                  description: props.description};
   }
   render(): React.ReactNode {
     return <>
@@ -15,4 +23,4 @@ class CartListItem extends React.Component {
   }
 }
 
-export default CartListItem
+export default CardListItem

@@ -3,39 +3,48 @@ import "./Main.css"
 import SearchPannel from './SearchPanel/SearchPanel';
 import CardListPanel from './CardListPanel/CardListPanel';
 
-class Main extends React.Component {
-  constructor(props) {    
+interface MainState {
+  searchText: string| null,
+  data?: [{
+    uid: string
+    title: string, 
+    season: {title:string}, 
+    seasonNumber: string, 
+    episodeNumber: string
+  }]| null
+}
 
-    super(props)
-    this.state = { 
+class Main extends React.Component<object , MainState> {
+  
+  state: MainState = { 
       searchText: null,
-      data: null}
+      data: null};
+  constructor(props: object) {
+
+    super(props);
   }
 
-  buttonClick = (text: string)=> {
+  buttonClick = (text: string| null)=> {
     this.setState({searchText:text})
-    console.log("button clicked");
     this.fetchData(text);
     
   }
   
   fetchData = async (searchText: string| null) => {
-    try {
     let init: RequestInit| undefined
 
       if(searchText) {
         init = {
-          method: "POST", // *GET, POST, PUT, DELETE, etc.
-          mode: "cors", // no-cors, *cors, same-origin
-          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: "same-origin", // include, *same-origin, omit
+          method: "POST",
+          mode: "cors", 
+          cache: "no-cache",
+          credentials: "same-origin",
           headers: {
-            //"Content-Type": "application/json",
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-          redirect: "follow", // manual, *follow, error
-          referrerPolicy: "strict-origin-when-cross-origin", // no-referrer, *client
-          body: new URLSearchParams({title: searchText, name: searchText}), // body data type must match "Content-Type" header
+          redirect: "follow",
+          referrerPolicy: "strict-origin-when-cross-origin",
+          body: new URLSearchParams({title: searchText, name: searchText}),
         }
 
       }
@@ -44,10 +53,7 @@ class Main extends React.Component {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      this.setState({ data });
-    } catch (error) {
-      console.log(error.message);
-    }
+      this.setState({ data: data.episodes });
   };
 
   // Call the fetch function in componentDidMount
