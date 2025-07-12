@@ -25,6 +25,7 @@ class Main extends React.Component<object , MainState> {
   }
 
   buttonClick = (text: string| null)=> {
+    localStorage.setItem("searchText", text? text: "");
     this.setState({searchText:text})
     this.fetchData(text);
     
@@ -56,7 +57,6 @@ class Main extends React.Component<object , MainState> {
       this.setState({ data: data.episodes });
   };
 
-  // Call the fetch function in componentDidMount
   componentDidMount() {
     this.fetchData(this.state.searchText);
   }
