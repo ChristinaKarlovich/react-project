@@ -2,9 +2,11 @@ import React from 'react';
 import "./Main.css"
 import SearchPannel from './SearchPanel/SearchPanel';
 import CardListPanel from './CardListPanel/CardListPanel';
+import CardSkeleton from './CardListPanel/CardListItem/CardSkeleton';
 
 interface MainState {
   searchText: string| null,
+  isLoading: boolean,
   data?: [{
     uid: string
     title: string, 
@@ -18,7 +20,8 @@ class Main extends React.Component<object , MainState> {
   
   state: MainState = { 
       searchText: null,
-      data: null};
+      data: null,
+      isLoading: false};
   constructor(props: object) {
 
     super(props);
@@ -29,7 +32,7 @@ class Main extends React.Component<object , MainState> {
     this.setState({searchText:text})
     this.fetchData(text);
     
-  }
+  } 
   
   fetchData = async (searchText: string| null) => {
     let init: RequestInit| undefined
@@ -49,21 +52,24 @@ class Main extends React.Component<object , MainState> {
         }
 
       }
-      const response = await fetch('https://stapi.co/api/v1/rest/episode/search', init);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      this.setState({ data: data.episodes });
+      this.setState({isLoading: true})
+      fetch('https://stapi.co/api/v1/rest/episode/search', init)
+      .then(res => res.json())
+      .then(res=> this.setState({ data: res.episodes, isLoading: false }));
+      
   };
 
   componentDidMount() {
     this.fetchData(this.state.searchText);
   }
   render(): React.ReactNode {
+    const show = this.state.isLoading? 
+      <CardSkeleton amount={10} />: 
+      <CardListPanel data = {this.state.data}/>
     return <div>
       <SearchPannel searchText = {this.state.searchText} showResult = {this.buttonClick}/>
-      <CardListPanel data = {this.state.data}/>
+      {show}
+        
     </div>
   }
 }

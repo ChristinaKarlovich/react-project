@@ -27,10 +27,12 @@ class CardListPanel extends React.Component<CardListProps>{
     if(!this.props.data)
       return<></>
     const cardList = this.props.data.map(item=> {
-      return (<div key={item.uid}><CartListItem uid = {item.uid} title = {item.title} description = {item.season.title} season = {item.seasonNumber} episode = {item.episodeNumber} /> </div>);
+      return (<div key={item.uid}>
+        <CartListItem uid = {item.uid} title = {item.title} description = {item.season.title} season = {item.seasonNumber} episode = {item.episodeNumber} /> 
+        </div>);
       
     } )
-    return <div>
+    return <div className='card-list'>
     {cardList}
     </div>
   }
