@@ -66,7 +66,15 @@ class Main extends React.Component<object , MainState> {
   componentDidMount() {
     this.fetchData(this.state.searchText);
   }
+
+  errorButtonClicked =() => {
+    this.setState({error: "error button clicked"});
+  }
+
   render(): React.ReactNode {
+    if(this.state.error) {
+      throw Error(this.state.error)
+    }
     let show: React.ReactElement| null = null;
     
     if(this.state.isLoading) 
@@ -79,7 +87,7 @@ class Main extends React.Component<object , MainState> {
     return <div>
       <SearchPannel searchText = {this.state.searchText} showResult = {this.buttonClick}/>
       {show}
-        
+      <button onClick={this.errorButtonClicked}>Throw Error</button>
     </div>
   }
 }
