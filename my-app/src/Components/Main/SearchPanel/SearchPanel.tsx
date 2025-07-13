@@ -32,6 +32,7 @@ class SearchPannel extends React.Component<SearchPanelProps, SearchPanelState> {
   render(): React.ReactNode {
     return <div>
       <form onSubmit={this.handleSubmit}>
+        <label>Episode title</label>
         <input type='text' onChange={this.handleChange} value={this.state.searchText? this.state.searchText: ""}></input>
         <input type="submit" value="Search" />
       </form>
