@@ -1,19 +1,19 @@
-import React, { type ErrorInfo } from 'react';
+import React, { type ErrorInfo } from "react";
 
 interface ErrorBoundaryProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps> {
-    state = {
-    errorMessage: '',
+  state = {
+    errorMessage: "",
   };
 
-  static getDerivedStateFromError(error:Error) {
+  static getDerivedStateFromError(error: Error) {
     return { errorMessage: error.toString() };
   }
 
-  componentDidCatch(error:Error, info:ErrorInfo) {
+  componentDidCatch(error: Error, info: ErrorInfo) {
     this.logErrorToServices(error.toString(), info.componentStack);
   }
 
