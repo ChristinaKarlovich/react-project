@@ -1,16 +1,16 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import './index.css';
-import App from './App.tsx';
-import { SkeletonTheme } from 'react-loading-skeleton';
-import ErrorBoundary from './Components/ErrorBoundary.tsx';
+import React from "react";
+import { createRoot, type Container } from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
+import { SkeletonTheme } from "react-loading-skeleton";
+import ErrorBoundary from "./Components/ErrorBoundary.tsx";
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root") as Container).render(
   <React.StrictMode>
     <ErrorBoundary>
-      <SkeletonTheme baseColor='#d9d9d9'>
+      <SkeletonTheme baseColor="#d9d9d9">
         <App />
       </SkeletonTheme>
     </ErrorBoundary>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

@@ -1,9 +1,9 @@
-import React from 'react';
-import './Main.css';
-import SearchPannel from './SearchPanel/SearchPanel';
-import CardListPanel from './CardListPanel/CardListPanel';
-import CardSkeleton from './CardListPanel/CardListItem/CardSkeleton';
-import ErrorInfo from './ErrorInfo/ErrorInfo';
+import React from "react";
+import "./Main.css";
+import SearchPannel from "./SearchPanel/SearchPanel";
+import CardListPanel from "./CardListPanel/CardListPanel";
+import CardSkeleton from "./CardListPanel/CardListItem/CardSkeleton";
+import ErrorInfo from "./ErrorInfo/ErrorInfo";
 
 interface MainState {
   searchText: string | null;
@@ -17,7 +17,7 @@ interface MainState {
           season: { title: string };
           seasonNumber: string;
           episodeNumber: string;
-        }
+        },
       ]
     | null;
 }
@@ -27,14 +27,11 @@ class Main extends React.Component<object, MainState> {
     searchText: null,
     data: null,
     isLoading: false,
-    error: ''
+    error: "",
   };
-  constructor(props: object) {
-    super(props);
-  }
 
   buttonClick = (text: string | null) => {
-    localStorage.setItem('searchText', text ? text : '');
+    localStorage.setItem("searchText", text ? text : "");
     this.setState({ searchText: text });
     this.fetchData(text);
   };
@@ -44,20 +41,20 @@ class Main extends React.Component<object, MainState> {
 
     if (searchText) {
       init = {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        redirect: 'follow',
-        referrerPolicy: 'strict-origin-when-cross-origin',
-        body: new URLSearchParams({ title: searchText, name: searchText })
+        redirect: "follow",
+        referrerPolicy: "strict-origin-when-cross-origin",
+        body: new URLSearchParams({ title: searchText, name: searchText }),
       };
     }
     this.setState({ isLoading: true });
-    fetch('https://stapi.co/api/v1/rest/episode/search', init)
+    fetch("https://stapi.co/api/v1/rest/episode/search", init)
       .then((res) => res.json())
       .then((res) => this.setState({ data: res.episodes, isLoading: false }))
       .catch((error) => this.setState({ error: error.message }));
@@ -68,7 +65,7 @@ class Main extends React.Component<object, MainState> {
   }
 
   errorButtonClicked = () => {
-    this.setState({ error: 'error button clicked' });
+    this.setState({ error: "error button clicked" });
   };
 
   render(): React.ReactNode {

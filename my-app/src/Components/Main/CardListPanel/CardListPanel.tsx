@@ -1,6 +1,6 @@
-import React from 'react';
-import './CardListPanel.css';
-import CartListItem from './CardListItem/CardListItem';
+import React from "react";
+import "./CardListPanel.css";
+import CartListItem from "./CardListItem/CardListItem";
 
 interface CardListProps {
   data?:
@@ -11,16 +11,12 @@ interface CardListProps {
           season: { title: string };
           seasonNumber: string;
           episodeNumber: string;
-        }
+        },
       ]
     | null;
 }
 
 class CardListPanel extends React.Component<CardListProps> {
-  constructor(props: CardListProps) {
-    super(props);
-  }
-
   render(): React.ReactNode {
     if (!this.props.data) return <></>;
     const cardList = this.props.data.map((item) => {
@@ -36,7 +32,7 @@ class CardListPanel extends React.Component<CardListProps> {
         </div>
       );
     });
-    return <div className='card-list'>{cardList}</div>;
+    return <div className="card-list">{cardList}</div>;
   }
 }
 
