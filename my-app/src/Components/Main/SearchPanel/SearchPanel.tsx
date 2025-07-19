@@ -1,5 +1,5 @@
-import React from "react";
-import "./SearchPanel.css";
+import React from 'react';
+import './SearchPanel.css';
 
 interface SearchPanelProps {
   searchText: string | null;
@@ -13,7 +13,7 @@ interface SearchPanelState {
 class SearchPannel extends React.Component<SearchPanelProps, SearchPanelState> {
   constructor(props: SearchPanelProps) {
     super(props);
-    const text = localStorage.getItem("searchText");
+    const text = localStorage.getItem('searchText');
     this.state = { searchText: text };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,11 +34,11 @@ class SearchPannel extends React.Component<SearchPanelProps, SearchPanelState> {
         <form onSubmit={this.handleSubmit}>
           <label>Episode title</label>
           <input
-            type="text"
+            type='text'
             onChange={this.handleChange}
-            value={this.state.searchText ? this.state.searchText : ""}
+            value={this.state.searchText ? this.state.searchText : ''}
           ></input>
-          <input type="submit" value="Search" />
+          <input type='submit' value='Search' />
         </form>
       </div>
     );

@@ -1,4 +1,4 @@
-import React, { type ErrorInfo } from "react";
+import React, { type ErrorInfo } from 'react';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
@@ -6,7 +6,7 @@ interface ErrorBoundaryProps {
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps> {
   state = {
-    errorMessage: "",
+    errorMessage: ''
   };
 
   static getDerivedStateFromError(error: Error) {
