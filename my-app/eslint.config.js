@@ -37,5 +37,11 @@ export default tseslint.config([
         version: "detect",
       },
     },
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto",
+      },
+    ],
   },
 ]);
