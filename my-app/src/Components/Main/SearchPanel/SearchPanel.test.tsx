@@ -1,9 +1,13 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 
 import SearchPannel from "./SearchPanel";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 describe("SearchPannel", () => {
+  afterEach(() => {
+    localStorage.clear();
+  });
+
   it("renders SearchPannel", () => {
     render(
       <SearchPannel
@@ -78,5 +82,21 @@ describe("SearchPannel", () => {
 
     expect(onChange).toHaveBeenCalledTimes(1);
     screen.debug();
+  });
+
+  it("get value from local storage", () => {
+    //getItemSpy.mockReturnValue("trouble");
+    localStorage.setItem("searchText", "time");
+
+    render(
+      <SearchPannel
+        searchText={null}
+        showResult={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+      />,
+    );
+
+    expect(screen.queryByDisplayValue("time")).toBeInTheDocument();
   });
 });
