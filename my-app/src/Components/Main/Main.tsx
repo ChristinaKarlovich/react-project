@@ -4,6 +4,7 @@ import SearchPannel from "./SearchPanel/SearchPanel";
 import CardListPanel from "./CardListPanel/CardListPanel";
 import CardSkeleton from "./CardListPanel/CardListItem/CardSkeleton";
 import ErrorInfo from "./ErrorInfo/ErrorInfo";
+import fetchData from "../../API/api";
 
 interface MainState {
   searchText: string | null;
@@ -30,38 +31,18 @@ class Main extends React.Component<object, MainState> {
     error: "",
   };
 
-  buttonClick = (text: string | null) => {
+  buttonClick = async (text: string | null) => {
     localStorage.setItem("searchText", text ? text : "");
     this.setState({ searchText: text });
-    this.fetchData(text);
-  };
-
-  fetchData = async (searchText: string | null) => {
-    let init: RequestInit | undefined;
-
-    if (searchText) {
-      init = {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        redirect: "follow",
-        referrerPolicy: "strict-origin-when-cross-origin",
-        body: new URLSearchParams({ title: searchText, name: searchText }),
-      };
-    }
     this.setState({ isLoading: true });
-    fetch("https://stapi.co/api/v1/rest/episode/search", init)
-      .then((res) => res.json())
-      .then((res) => this.setState({ data: res.episodes, isLoading: false }))
-      .catch((error) => this.setState({ error: error.message }));
+    const res = await fetchData(text);
+    this.setState({ data: res, isLoading: false });
   };
 
-  componentDidMount() {
-    this.fetchData(this.state.searchText);
+  async componentDidMount() {
+    this.setState({ isLoading: true });
+    const res = await fetchData(this.state.searchText);
+    this.setState({ data: res, isLoading: false });
   }
 
   errorButtonClicked = () => {
