@@ -1,4 +1,3 @@
-import React from "react";
 import "./CardListPanel.css";
 import CartListItem from "./CardListItem/CardListItem";
 
@@ -16,24 +15,22 @@ interface CardListProps {
     | null;
 }
 
-class CardListPanel extends React.Component<CardListProps> {
-  render(): React.ReactNode {
-    if (!this.props.data) return <></>;
-    const cardList = this.props.data.map((item) => {
-      return (
-        <div key={item.uid}>
-          <CartListItem
-            uid={item.uid}
-            title={item.title}
-            description={item.season.title}
-            season={item.seasonNumber}
-            episode={item.episodeNumber}
-          />
-        </div>
-      );
-    });
-    return <div className="card-list">{cardList}</div>;
-  }
+function CardListPanel(props: CardListProps) {
+  if (!props.data) return <></>;
+  const cardList = props.data.map((item) => {
+    return (
+      <div key={item.uid}>
+        <CartListItem
+          uid={item.uid}
+          title={item.title}
+          description={item.season.title}
+          season={item.seasonNumber}
+          episode={item.episodeNumber}
+        />
+      </div>
+    );
+  });
+  return <div className="card-list">{cardList}</div>;
 }
 
 export default CardListPanel;
