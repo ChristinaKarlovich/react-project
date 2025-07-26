@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import "./SearchPanel.css";
 
 interface SearchPanelProps {
@@ -6,42 +6,27 @@ interface SearchPanelProps {
   showResult: (text: string | null) => void;
 }
 
-interface SearchPanelState {
-  searchText: string | null;
-  data?: [];
-}
-class SearchPannel extends React.Component<SearchPanelProps, SearchPanelState> {
-  constructor(props: SearchPanelProps) {
-    super(props);
-    const text = localStorage.getItem("searchText");
-    this.state = { searchText: text };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+function SearchPannel(props: SearchPanelProps) {
+  const text = localStorage.getItem("searchText");
+  const [searchText, setSearchText] = useState(text);
+
+  function handleChange(event: { target: { value: string } }) {
+    setSearchText(event.target.value);
   }
 
-  handleChange(event: { target: { value: string } }) {
-    this.setState({ searchText: event.target.value });
-  }
-
-  handleSubmit(event: { preventDefault: () => void }) {
-    this.props.showResult(this.state.searchText);
+  function handleSubmit(event: { preventDefault: () => void }) {
+    props.showResult(searchText);
     event.preventDefault();
   }
 
-  render(): React.ReactNode {
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>Episode title</label>
-          <input
-            type="text"
-            onChange={this.handleChange}
-            value={this.state.searchText ? this.state.searchText : ""}
-          ></input>
-          <input type="submit" value="Search" />
-        </form>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label>Episode title</label>
+        <input type="text" onChange={handleChange} value={searchText ? searchText : ""}></input>
+        <input type="submit" value="Search" />
+      </form>
+    </div>
+  );
 }
 export default SearchPannel;
