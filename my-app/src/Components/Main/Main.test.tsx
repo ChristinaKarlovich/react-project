@@ -1,11 +1,7 @@
-import createFetchMock from "vitest-fetch-mock";
 import { render, screen } from "@testing-library/react";
 
 import Main from "./Main";
 import { describe, it } from "vitest";
-
-const fetchMocker = createFetchMock(vi);
-fetchMocker.enableMocks();
 
 describe("Main", () => {
   beforeEach(() => {});
