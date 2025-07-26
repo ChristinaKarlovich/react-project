@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./SearchPanel.css";
 
 interface SearchPanelProps {
-  searchText: string | null;
   showResult: (text: string | null) => void;
 }
 
