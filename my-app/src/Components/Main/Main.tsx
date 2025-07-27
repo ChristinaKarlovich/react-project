@@ -8,8 +8,7 @@ import fetchData from "../../API/api";
 import useLocalStorage from "../../Hooks/useLocalStorage";
 
 function Main() {
-  const [lsText] = useLocalStorage("searchText");
-  const [searchText, setSearchText] = useState(lsText as string);
+  const [searchText, setSearchText] = useLocalStorage("searchText");
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
