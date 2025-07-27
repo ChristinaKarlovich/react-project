@@ -5,10 +5,11 @@ import CardListPanel from "./CardListPanel/CardListPanel";
 import CardSkeleton from "./CardListPanel/CardListItem/CardSkeleton";
 import ErrorInfo from "./ErrorInfo/ErrorInfo";
 import fetchData from "../../API/api";
+import useLocalStorage from "../../Hooks/useLocalStorage";
 
 function Main() {
-  const lsText = localStorage.getItem("searchText");
-  const [searchText, setSearchText] = useState(lsText);
+  const [lsText] = useLocalStorage("searchText");
+  const [searchText, setSearchText] = useState(lsText as string);
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
