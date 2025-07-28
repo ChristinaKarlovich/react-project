@@ -7,13 +7,16 @@ import ErrorInfo from "./ErrorInfo/ErrorInfo";
 import fetchData from "../../API/api";
 import useLocalStorage from "../../Hooks/useLocalStorage";
 import Pagination from "../Pagination/Pagination";
+import { useSearchParams } from "react-router-dom";
 
 function Main() {
   const [searchText, setSearchText] = useLocalStorage("searchText");
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [pageNumber, setPageNumber] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page: number | null = Number(searchParams.get("page"));
+  const [pageNumber, setPageNumber] = useState(page ? page : 0);
   const [{ firstPage, lastPage }, setPageInfo] = useState({ firstPage: true, lastPage: false });
 
   useEffect(() => {
@@ -27,8 +30,12 @@ function Main() {
   }
 
   function changePage(page: number) {
+    setSearchParams((params) => {
+      params.set("page", String(page));
+      return params;
+    });
+
     setPageNumber(page);
-    loadData(searchText, page);
   }
 
   async function loadData(text: string, page: number) {

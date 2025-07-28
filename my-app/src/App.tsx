@@ -13,7 +13,9 @@ function App() {
         <Nav />
         <Header />
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Main />}>
+            {/* <Route path="/?page" index element={<Main />}></Route> */}
+          </Route>
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
