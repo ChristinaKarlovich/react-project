@@ -6,30 +6,38 @@ import CardSkeleton from "./CardListPanel/CardListItem/CardSkeleton";
 import ErrorInfo from "./ErrorInfo/ErrorInfo";
 import fetchData from "../../API/api";
 import useLocalStorage from "../../Hooks/useLocalStorage";
+import Pagination from "../Pagination/Pagination";
 
 function Main() {
   const [searchText, setSearchText] = useLocalStorage("searchText");
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [pageNumber, setPageNumber] = useState(0);
+  const [{ firstPage, lastPage }, setPageInfo] = useState({ firstPage: true, lastPage: false });
 
   useEffect(() => {
-    loadData();
+    loadData(searchText, pageNumber);
   }, []);
 
   async function buttonClick(text: string | null) {
     localStorage.setItem("searchText", text ? text : "");
     setSearchText(text as string);
-    setIsLoading(true);
-    const res = await fetchData(text);
-    setData(res);
-    setIsLoading(false);
+    loadData(text as string, 0);
   }
 
-  async function loadData() {
+  function changePage(page: number) {
+    setPageNumber(page);
+    loadData(searchText, page);
+  }
+
+  async function loadData(text: string, page: number) {
     setIsLoading(true);
-    const res = await fetchData(searchText);
-    setData(res);
+    const res = await fetchData(text, page);
+    console.log(res);
+    setData(res.item.episodes);
+    setPageNumber(res.item.page.pageNumber);
+    setPageInfo({ firstPage: res.item.page.firstPage, lastPage: res.item.page.lastPage });
     setIsLoading(false);
   }
 
@@ -49,6 +57,12 @@ function Main() {
     <div>
       <SearchPannel showResult={buttonClick} />
       {show}
+      <Pagination
+        pageNumber={pageNumber}
+        firstPage={firstPage}
+        lastPage={lastPage}
+        changePage={changePage}
+      />
       <button onClick={errorButtonClicked}>Throw Error</button>
     </div>
   );
