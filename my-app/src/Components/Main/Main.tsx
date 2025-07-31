@@ -36,6 +36,7 @@ function Main() {
     });
 
     setPageNumber(page);
+    loadData(searchText as string, page);
   }
 
   async function loadData(text: string, page: number) {

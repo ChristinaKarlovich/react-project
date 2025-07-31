@@ -24,7 +24,7 @@ class CardSkeleton extends React.Component<CardSceletonProps, CardSceletonState>
             <Skeleton count={1} />
           </div>
           <div className="card-desc">
-            <Skeleton count={2} />
+            <Skeleton count={1} />
           </div>
         </div>
       );
