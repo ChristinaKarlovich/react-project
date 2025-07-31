@@ -1,6 +1,6 @@
-async function fetchData(searchText: string | null, pageNumber: number, pageSize = 10) {
-  const base = "https://stapi.co/api/v1/rest/episode/search";
+const base = "https://stapi.co/api/v1/rest/episode";
 
+export async function getEpisodeList(searchText: string | null, pageNumber: number, pageSize = 10) {
   let init: RequestInit | undefined;
 
   if (searchText) {
@@ -17,16 +17,18 @@ async function fetchData(searchText: string | null, pageNumber: number, pageSize
       body: new URLSearchParams({ title: searchText, name: searchText }),
     };
   }
-  const response = await fetch(`${base}?pageSize=${pageSize}&pageNumber=${pageNumber}`, init);
+  const response = await fetch(
+    `${base}/search?pageSize=${pageSize}&pageNumber=${pageNumber}`,
+    init,
+  );
   return {
     item: await response.json(),
   };
-
-  // .then((res) => res.json())
-  // .then((res) => {
-  //   console.log(res.episodes);
-  //   return res.episodes;
-  // });
 }
 
-export default fetchData;
+export async function getEpisode(uid: string) {
+  const response = await fetch(`${base}/?uid=${uid}`);
+  return {
+    item: await response.json(),
+  };
+}

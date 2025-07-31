@@ -6,15 +6,16 @@
   border-radius: 5px;
   margin: 5px;
   padding: 5px;
+  cursor: pointer;
 
   .card-title {
-    width: 30%;
+    width: fit-content;
     font-weight: bold;
     font-size: 20px;
   }
 
   .card-desc {
-    width: 70%;
+    padding-left: 10px;
     font-size: 20px;
   }
 }

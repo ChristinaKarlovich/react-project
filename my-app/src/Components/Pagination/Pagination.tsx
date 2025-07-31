@@ -8,7 +8,6 @@ interface PaginationProps {
 }
 
 function Pagination(props: PaginationProps) {
-  console.log(props);
   function handleClickNext() {
     if (props.lastPage) return;
     props.changePage(props.pageNumber + 1);

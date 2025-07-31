@@ -4,7 +4,7 @@ import SearchPannel from "./SearchPanel/SearchPanel";
 import CardListPanel from "./CardListPanel/CardListPanel";
 import CardSkeleton from "./CardListPanel/CardListItem/CardSkeleton";
 import ErrorInfo from "./ErrorInfo/ErrorInfo";
-import fetchData from "../../API/api";
+import { getEpisodeList } from "../../API/api";
 import useLocalStorage from "../../Hooks/useLocalStorage";
 import Pagination from "../Pagination/Pagination";
 import { useSearchParams } from "react-router-dom";
@@ -32,6 +32,7 @@ function Main() {
   function changePage(page: number) {
     setSearchParams((params) => {
       params.set("page", String(page));
+      params.delete("uid");
       return params;
     });
 
@@ -41,8 +42,7 @@ function Main() {
 
   async function loadData(text: string, page: number) {
     setIsLoading(true);
-    const res = await fetchData(text, page);
-    console.log(res);
+    const res = await getEpisodeList(text, page);
     setData(res.item.episodes);
     setPageNumber(res.item.page.pageNumber);
     setPageInfo({ firstPage: res.item.page.firstPage, lastPage: res.item.page.lastPage });

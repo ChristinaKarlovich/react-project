@@ -1,0 +1,7 @@
+.card-list-panel {
+  display: flex;
+
+  .card-list {
+    width: 100%;
+  }
+}
