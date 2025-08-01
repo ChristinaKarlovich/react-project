@@ -1,14 +1,14 @@
-import React from "react";
+import { useContext } from "react";
 import "./Header.css";
+import { ThemeContext } from "../../API/Contexts";
 
-class Header extends React.Component {
-  render(): React.ReactNode {
-    return (
-      <div className="heder-wrapper">
-        <h1>Star Trek Series</h1>
-      </div>
-    );
-  }
+function Header() {
+  const theme = useContext(ThemeContext);
+  return (
+    <div className={"heder-wrapper" + " " + theme}>
+      <h1>Star Trek Series</h1>
+    </div>
+  );
 }
 
 export default Header;

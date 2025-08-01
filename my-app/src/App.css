@@ -1,0 +1,10 @@
+.theme-btn {
+  position: absolute;
+  right: 0%;
+  width: 30px;
+  padding: 5px;
+
+  img {
+    width: inherit;
+  }
+}

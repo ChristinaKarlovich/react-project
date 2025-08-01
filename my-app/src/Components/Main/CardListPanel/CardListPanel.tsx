@@ -20,7 +20,7 @@ interface CardListProps {
 
 function CardListPanel(props: CardListProps) {
   const [, setSearchParams] = useSearchParams();
-  const [selectedCardId, setSelectedCardId] = useState<string|null>(null);
+  const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
 
   function changeCurrentCard(uid: string | null) {
     if (uid)

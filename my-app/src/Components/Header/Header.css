@@ -1,0 +1,9 @@
+.light {
+  background-color: aliceblue;
+  color: darkslategrey;
+}
+
+.dark {
+  background-color: rgb(7, 7, 61);
+  color: goldenrod;
+}
